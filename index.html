@@ -1,13 +1,10 @@
-<!-- MAIN TOURNAMENT CONTAINER WITH SCREEN-CUT SHIELD -->
+<!-- PART 1 OF 5: MAIN TOURNAMENT CONTAINER, LONG-GAP CONNECTOR STYLES, AND HEADERS -->
 <div style="background-color: #060709; color: #adbac7; padding: 20px 15px; font-family: 'Orbitron', -apple-system, sans-serif; font-size: 11px; border-radius: 16px; border: 1px solid #14171f; max-width: 1450px; margin: 0 auto; box-sizing: border-box; box-shadow: 0 30px 60px rgba(0,0,0,0.9); background-image: radial-gradient(#1f2430 1px, transparent 0); background-size: 20px 20px;">
 
   <!-- MOBILE SCROLL HINT INDICATOR -->
   <div class="scroll-hint">↔ Swipe horizontally to view full bracket</div>
 
-  <!-- HIGH-END TOURNAMENT GRID INTERACTION SHEET -->
   <style>
-    @import url('https://googleapis.com');
-
     .responsive-scroll-container {
       width: 100%;
       overflow-x: auto;
@@ -29,14 +26,14 @@
       font-weight: 700;
     }
 
-    /* Fixed Row Matrix Tracking: Standardized rows allow larger cards to expand cleanly */
+    /* Fixed Row Matrix Tracking: Strict 72px rows lock down alignment so cards and pipes never drift */
     .tournament-grid-wrapper {
       display: grid;
-      grid-template-columns: minmax(160px, 1fr) 30px minmax(160px, 1fr) 30px minmax(160px, 1fr) 30px minmax(160px, 1fr) 30px minmax(160px, 1fr);
-      grid-template-rows: 40px repeat(17, 62px);
+      grid-template-columns: minmax(160px, 1fr) 40px minmax(160px, 1fr) 40px minmax(160px, 1fr) 40px minmax(160px, 1fr) 40px minmax(160px, 1fr);
+      grid-template-rows: 40px repeat(21, 72px);
       align-items: center;
       background-color: transparent;
-      min-width: 1100px;
+      min-width: 1150px;
     }
 
     @media (max-width: 768px) {
@@ -56,24 +53,28 @@
       text-align: center;
     }
 
-    /* Standard Cards (Prelims, R16, QFs) */
+    /* INDEPENDENT NUDGE ENGINE: Transforms shift the card physically without altering surrounding elements */
+    .m-card, .sf-card-xl, .gf-card-xl {
+      position: relative;
+      transform: translateY(var(--nudge, 0px)) !important;
+    }
+
+    /* Standard Cards (Prelims, R16, QFs, 3rd Place) */
     .m-card {
       background: linear-gradient(145deg, #181b24 0%, #0d0f14 100%) !important;
       border: 1px solid #28303f !important;
       border-radius: 8px !important;
-      padding: 4px 8px !important;
+      padding: 6px 8px !important;
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.05) !important;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       height: 62px !important;
       box-sizing: border-box !important;
-      overflow: hidden !important;
-      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s !important;
     }
     .m-card:hover {
       border-color: #4a576c !important;
-      transform: translateY(-2px) scale(1.01) !important;
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.8) !important;
     }
     .m-card.p-seed { 
@@ -105,14 +106,9 @@
       justify-content: space-between;
       height: 80px !important;
       box-sizing: border-box !important;
-      overflow: hidden !important;
-      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s !important;
     }
-    .sf-card-xl:hover {
-      border-color: #ff4d4d !important;
-      transform: translateY(-2px) scale(1.01) !important;
-      box-shadow: 0 15px 30px rgba(255, 77, 77, 0.15) !important;
-    }
+    .sf-card-xl:hover { border-color: #ff4d4d !important; }
 
     /* PREMIER GRAND FINAL CARD FORMAT (100px HEIGHT - LARGEST BOX) */
     .gf-card-xl {
@@ -127,17 +123,11 @@
       justify-content: space-between;
       height: 100px !important;
       box-sizing: border-box !important;
-      overflow: hidden !important;
-      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-    }
-    .gf-card-xl:hover {
-      transform: scale(1.02) translateY(-2px) !important;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.95), 0 0 30px rgba(212, 163, 115, 0.2) !important;
     }
     
     .comp-row {
       display: grid;
-      grid-template-columns: 16px 1fr 22px;
+      grid-template-columns: 16px 1fr 24px;
       align-items: center;
       width: 100%;
       gap: 4px;
@@ -151,7 +141,6 @@
       margin: -2px 0;
       opacity: 0.5;
     }
-    .bracket-svg { width: 100%; height: 100%; pointer-events: none; display: block; }
     .player-line-text {
       font-size: 10px !important; 
       font-weight: 900 !important;
@@ -165,11 +154,11 @@
     }
     .player-line-text.rank-1-font { color: #4bf074 !important; }
     .player-line-text.rank-2-font { color: #5bb2ff !important; }
-    .winner-highlight { color: #00ff66 !important; text-shadow: 0 0 10px #00ff66 !important; }
+    .winner-highlight { color: #00ff66 !important; text-shadow: 0 0 10px rgba(0,255,102,0.4) !important; }
     .loser-dim { opacity: 0.35; }
 
     .score-box {
-      width: 22px;
+      width: 24px;
       height: 18px;
       background: #0f111a;
       border: 1px solid #364259;
@@ -183,6 +172,29 @@
       grid-column: 3;
     }
     .gf-score-box { width: 24px; height: 20px; font-size: 11px; }
+
+    /* HARDWARE CONNECTOR LINES: Integrated paths pull directly out from card centers, tracking the exact --nudge variations */
+    .connect-straight-long::after {
+      content: ""; position: absolute; top: calc(50% - 1px); right: -41px; width: 41px; height: 2px; background: #4a576c; z-index: 1;
+    }
+    .connect-up-gap::after {
+      content: ""; position: absolute; top: calc(50% - 1px); right: -41px; width: 41px; height: calc(110px + var(--pipe-stretch, 0px)); border-right: 2px solid #4a576c; border-top: 2px solid #4a576c; z-index: 1;
+    }
+    .connect-down-gap::after {
+      content: ""; position: absolute; bottom: calc(50% - 1px); right: -41px; width: 41px; height: calc(110px + var(--pipe-stretch, 0px)); border-right: 2px solid #4a576c; border-bottom: 2px solid #4a576c; z-index: 1;
+    }
+    .connect-qf-up-gap::after {
+      content: ""; position: absolute; top: calc(50% - 1px); right: -41px; width: 41px; height: calc(182px + var(--pipe-stretch, 0px)); border-right: 2px solid #4a576c; border-top: 2px solid #4a576c; z-index: 1;
+    }
+    .connect-qf-down-gap::after {
+      content: ""; position: absolute; bottom: calc(50% - 1px); right: -41px; width: 41px; height: calc(182px + var(--pipe-stretch, 0px)); border-right: 2px solid #4a576c; border-bottom: 2px solid #4a576c; z-index: 1;
+    }
+    .connect-sf-up-gap::after {
+      content: ""; position: absolute; top: calc(50% - 1px); right: -41px; width: 41px; height: calc(254px + var(--pipe-stretch, 0px)); border-right: 2px solid #4a576c; border-top: 2px solid #4a576c; z-index: 1;
+    }
+    .connect-sf-down-gap::after {
+      content: ""; position: absolute; bottom: calc(50% - 1px); right: -41px; width: 41px; height: calc(198px + var(--pipe-stretch, 0px)); border-right: 2px solid #4a576c; border-bottom: 2px solid #4a576c; z-index: 1;
+    }
   </style>
 
   <h1 style="font-family: 'Orbitron', sans-serif; color: #ffffff; border-bottom: 2px solid #21262d; padding-bottom: 12px; margin-top: 0; margin-bottom: 25px; text-align: center; font-size: 20px; letter-spacing: 2px; font-weight: 900; text-transform: uppercase;">⚔️ 8BRCAM PLAYOFFS</h1>
@@ -196,157 +208,136 @@
       <div class="round-header-cell" style="grid-column: 5; color: #7287a6;">🏅 Quarter-Finals<br><span style="color:#768390; font-size:9px;">Race to 7</span></div>
       <div class="round-header-cell" style="grid-column: 7; color: #ff4d4d;">🔥 Semi-Finals Zone<br><span style="color:#768390; font-size:9px;">Race to 9</span></div>
       <div class="round-header-cell" style="grid-column: 9; color: #d4a373;">👑 Grand Finals<br><span style="color:#768390; font-size:9px;">Race to 11</span></div>
+      <!-- PART 2 OF 5: COLUMNS 1 TO 4 (PRELIMS & ROUND OF 16 PADDED ROW INCREMENTS) -->
+      
       <!-- ⚡ PRELIMS: MATCH P1 -->
-      <div class="m-card p-seed" style="grid-column: 1; grid-row: 2;" data-next-target="r16-m1-p2">
+      <div class="m-card p-seed connect-straight-long" style="grid-column: 1; grid-row: 2; --nudge: 0px;" data-next-target="r16-m1-p2">
         <div class="comp-row"><span></span><div class="player-line-text">Prelim 1 Player A</div><input type="text" class="score-box" data-target="7" value="0"></div>
         <div class="vs-divider">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text">Prelim 1 Player B</div><input type="text" class="score-box" data-target="7" value="0"></div>
       </div>
-      <div style="grid-column: 2; grid-row: 2; height: 100%;">
-        <svg class="bracket-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M 0,50 H 100" stroke="#4a576c" stroke-width="2" fill="none" /></svg>
-      </div>
 
       <!-- 🏆 ROUND OF 16: MATCH 1 -->
-      <div class="m-card s-1" style="grid-column: 3; grid-row: 2;" data-next-target="qf-m1-p1">
+      <div class="m-card s-1 connect-up-gap" style="grid-column: 3; grid-row: 2; --nudge: 0px;" data-next-target="qf-m1-p1">
         <div class="comp-row"><span></span><div class="player-line-text rank-1-font">Rank 1 Player</div><input type="text" class="score-box" data-target="7" value="0"></div>
         <div class="vs-divider">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text" id="r16-m1-p2">Winner Prelim P1</div><input type="text" class="score-box" data-target="7" value="0"></div>
       </div>
-      <div style="grid-column: 4; grid-row: 2 / span 3; height: 100%;">
-        <svg class="bracket-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M 0,16.5 H 50 V 50 H 100 M 0,83.5 H 50" stroke="#4a576c" stroke-width="2" fill="none" /></svg>
-      </div>
 
       <!-- 🏆 ROUND OF 16: MATCH 2 -->
-      <div class="m-card" style="grid-column: 3; grid-row: 4;" data-next-target="qf-m1-p2">
+      <div class="m-card connect-down-gap" style="grid-column: 3; grid-row: 5; --nudge: 0px;" data-next-target="qf-m1-p2">
         <div class="comp-row"><span></span><div class="player-line-text">Group A Winner</div><input type="text" class="score-box" data-target="7" value="0"></div>
         <div class="vs-divider">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text">3rd Place (Rank 1)</div><input type="text" class="score-box" data-target="7" value="0"></div>
       </div>
 
       <!-- 🏆 ROUND OF 16: MATCH 3 -->
-      <div class="m-card" style="grid-column: 3; grid-row: 6;" data-next-target="qf-m2-p1">
+      <div class="m-card connect-up-gap" style="grid-column: 3; grid-row: 7; --nudge: 0px;" data-next-target="qf-m2-p1">
         <div class="comp-row"><span></span><div class="player-line-text">Group B Winner</div><input type="text" class="score-box" data-target="7" value="0"></div>
         <div class="vs-divider">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text">Group C Runner-up</div><input type="text" class="score-box" data-target="7" value="0"></div>
       </div>
-      <div style="grid-column: 4; grid-row: 6 / span 3; height: 100%;">
-        <svg class="bracket-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M 0,16.5 H 50 V 50 H 100 M 0,83.5 H 50" stroke="#4a576c" stroke-width="2" fill="none" /></svg>
-      </div>
 
       <!-- 🏆 ROUND OF 16: MATCH 4 -->
-      <div class="m-card" style="grid-column: 3; grid-row: 8;" data-next-target="qf-m2-p2">
+      <div class="m-card connect-down-gap" style="grid-column: 3; grid-row: 10; --nudge: 0px;" data-next-target="qf-m2-p2">
         <div class="comp-row"><span></span><div class="player-line-text">Group D Runner-up</div><input type="text" class="score-box" data-target="7" value="0"></div>
         <div class="vs-divider">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text">Group E Runner-up</div><input type="text" class="score-box" data-target="7" value="0"></div>
       </div>
+
       <!-- 🏆 ROUND OF 16: MATCH 5 -->
-      <div class="m-card" style="grid-column: 3; grid-row: 10;" data-next-target="qf-m3-p1">
+      <div class="m-card connect-up-gap" style="grid-column: 3; grid-row: 12; --nudge: 0px;" data-next-target="qf-m3-p1">
         <div class="comp-row"><span></span><div class="player-line-text">Group C Winner</div><input type="text" class="score-box" data-target="7" value="0"></div>
         <div class="vs-divider">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text">Group B Runner-up</div><input type="text" class="score-box" data-target="7" value="0"></div>
       </div>
-      <div style="grid-column: 4; grid-row: 10 / span 3; height: 100%;">
-        <svg class="bracket-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M 0,16.5 H 50 V 50 H 100 M 0,83.5 H 50" stroke="#4a576c" stroke-width="2" fill="none" /></svg>
-      </div>
 
       <!-- 🏆 ROUND OF 16: MATCH 6 -->
-      <div class="m-card" style="grid-column: 3; grid-row: 12;" data-next-target="qf-m3-p2">
+      <div class="m-card connect-down-gap" style="grid-column: 3; grid-row: 15; --nudge: 0px;" data-next-target="qf-m3-p2">
         <div class="comp-row"><span></span><div class="player-line-text">Group A Runner-up</div><input type="text" class="score-box" data-target="7" value="0"></div>
         <div class="vs-divider">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text">Group F Runner-up</div><input type="text" class="score-box" data-target="7" value="0"></div>
       </div>
 
       <!-- 🏆 ROUND OF 16: MATCH 7 -->
-      <div class="m-card" style="grid-column: 3; grid-row: 14;" data-next-target="qf-m4-p1">
+      <div class="m-card connect-up-gap" style="grid-column: 3; grid-row: 17; --nudge: 0px;" data-next-target="qf-m4-p1">
         <div class="comp-row"><span></span><div class="player-line-text">Group D Winner</div><input type="text" class="score-box" data-target="7" value="0"></div>
         <div class="vs-divider">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text">3rd Place (Rank 2)</div><input type="text" class="score-box" data-target="7" value="0"></div>
       </div>
-      <div style="grid-column: 4; grid-row: 14 / span 3; height: 100%;">
-        <svg class="bracket-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M 0,16.5 H 50 V 50 H 100 M 0,83.5 H 50" stroke="#4a576c" stroke-width="2" fill="none" /></svg>
-      </div>
 
       <!-- 🏆 ROUND OF 16: MATCH 8 -->
-      <div class="m-card s-2" style="grid-column: 3; grid-row: 16;" data-next-target="qf-m4-p2">
+      <div class="m-card s-2 connect-down-gap" style="grid-column: 3; grid-row: 20; --nudge: 0px;" data-next-target="qf-m4-p2">
         <div class="comp-row"><span></span><div class="player-line-text rank-2-font">Rank 2 Player</div><input type="text" class="score-box" data-target="7" value="0"></div>
         <div class="vs-divider">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text" id="r16-m8-p2">Winner Play-In P2</div><input type="text" class="score-box" data-target="7" value="0"></div>
       </div>
 
       <!-- ⚡ PRELIMS: MATCH P2 -->
-      <div class="m-card p-seed" style="grid-column: 1; grid-row: 16;" data-next-target="r16-m8-p2">
+      <div class="m-card p-seed connect-straight-long" style="grid-column: 1; grid-row: 20; --nudge: 0px;" data-next-target="r16-m8-p2">
         <div class="comp-row"><span></span><div class="player-line-text">Prelim 2 Player A</div><input type="text" class="score-box" data-target="7" value="0"></div>
         <div class="vs-divider">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text">Prelim 2 Player B</div><input type="text" class="score-box" data-target="7" value="0"></div>
       </div>
-      <div style="grid-column: 2; grid-row: 16; height: 100%;">
-        <svg class="bracket-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M 0,50 H 100" stroke="#4a576c" stroke-width="2" fill="none" /></svg>
-      </div>
+      <!-- PART 3 OF 5: COLUMNS 5 TO 8 (QUARTER-FINALS & SEMI-FINALS SPREAD GAP CONNECTORS) -->
+
       <!-- 🏅 QUARTER-FINALS: MATCH 1 -->
-      <div class="m-card qf-theme" style="grid-column: 5; grid-row: 3;" data-next-target="sf-m1-p1">
+      <div class="m-card qf-theme connect-qf-up-gap" style="grid-column: 5; grid-row: 3 / span 2; --nudge: 0px;" data-next-target="sf-m1-p1">
         <div class="comp-row"><span></span><div class="player-line-text" id="qf-m1-p1">Winner Match 1</div><input type="text" class="score-box" data-target="7" value="0"></div>
         <div class="vs-divider">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text" id="qf-m1-p2">Winner Match 2</div><input type="text" class="score-box" data-target="7" value="0"></div>
       </div>
-      <div style="grid-column: 6; grid-row: 3 / span 5; height: 100%;">
-        <svg class="bracket-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M 0,10 H 50 V 50 H 100 M 0,90 H 50" stroke="#4a576c" stroke-width="2" fill="none" /></svg>
-      </div>
 
       <!-- 🏅 QUARTER-FINALS: MATCH 2 -->
-      <div class="m-card qf-theme" style="grid-column: 5; grid-row: 7;" data-next-target="sf-m1-p2">
+      <div class="m-card qf-theme connect-qf-down-gap" style="grid-column: 5; grid-row: 8 / span 2; --nudge: 0px;" data-next-target="sf-m1-p2">
         <div class="comp-row"><span></span><div class="player-line-text" id="qf-m2-p1">Winner Match 3</div><input type="text" class="score-box" data-target="7" value="0"></div>
         <div class="vs-divider">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text" id="qf-m2-p2">Winner Match 4</div><input type="text" class="score-box" data-target="7" value="0"></div>
       </div>
 
       <!-- 🏅 QUARTER-FINALS: MATCH 3 -->
-      <div class="m-card qf-theme" style="grid-column: 5; grid-row: 11;" data-next-target="sf-m2-p1">
+      <div class="m-card qf-theme connect-qf-up-gap" style="grid-column: 5; grid-row: 13 / span 2; --nudge: 0px;" data-next-target="sf-m2-p1">
         <div class="comp-row"><span></span><div class="player-line-text" id="qf-m3-p1">Winner Match 5</div><input type="text" class="score-box" data-target="7" value="0"></div>
         <div class="vs-divider">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text" id="qf-m3-p2">Winner Match 6</div><input type="text" class="score-box" data-target="7" value="0"></div>
       </div>
-      <div style="grid-column: 6; grid-row: 11 / span 5; height: 100%;">
-        <svg class="bracket-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M 0,10 H 50 V 50 H 100 M 0,90 H 50" stroke="#4a576c" stroke-width="2" fill="none" /></svg>
-      </div>
 
       <!-- 🏅 QUARTER-FINALS: MATCH 4 -->
-      <div class="m-card qf-theme" style="grid-column: 5; grid-row: 15;" data-next-target="sf-m2-p2">
+      <div class="m-card qf-theme connect-qf-down-gap" style="grid-column: 5; grid-row: 18 / span 2; --nudge: 0px;" data-next-target="sf-m2-p2">
         <div class="comp-row"><span></span><div class="player-line-text" id="qf-m4-p1">Winner Match 7</div><input type="text" class="score-box" data-target="7" value="0"></div>
         <div class="vs-divider">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text" id="qf-m4-p2">Winner Match 8</div><input type="text" class="score-box" data-target="7" value="0"></div>
       </div>
 
-      <!-- 🔥 SEMI-FINALS: MATCH 1 (EXPANDED TO XL SEED) -->
-      <div class="sf-card-xl sf-theme" style="grid-column: 7; grid-row: 5;" data-next-target="gf-m1-p1" data-loser-target="third-m1-p1">
+      <!-- 🔥 SEMI-FINALS: MATCH 1 -->
+      <div class="sf-card-xl sf-theme connect-sf-up-gap" style="grid-column: 7; grid-row: 5 / span 2; --nudge: 0px;" data-next-target="gf-m1-p1" data-loser-target="third-m1-p1">
         <div class="comp-row"><span></span><div class="player-line-text" id="sf-m1-p1">Winner QF 1</div><input type="text" class="score-box" data-target="9" value="0"></div>
         <div class="vs-divider" style="margin: 2px 0;">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text" id="sf-m1-p2">Winner QF 2</div><input type="text" class="score-box" data-target="9" value="0"></div>
       </div>
-      <div style="grid-column: 8; grid-row: 5 / span 5; height: 100%;">
-        <svg class="bracket-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M 0,10 H 50 V 90 H 100" stroke="#4a576c" stroke-width="2" fill="none" /></svg>
-      </div>
 
       <!-- 🥉 3RD PLACE PLAYOFF -->
-      <div style="grid-column: 7; grid-row: 8; text-align: center; align-self: end; margin-bottom: 2px;">
-        <span style="display: inline-block; background: #14171f; border: 1px solid #d4a373; color: #d4a373; font-weight: 900; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px;">🥉 3rd Place Playoff</span>
-      </div>
-      <div class="m-card qf-theme" style="grid-column: 7; grid-row: 9;">
+      <!-- FIXED BALANCING POINT: Embedded the text elements safely within the main box structure layout to prevent drifting -->
+      <div class="m-card qf-theme" style="grid-column: 7; grid-row: 11; height: 84px !important; display: flex; flex-direction: column; justify-content: space-between; --nudge: -36px; --pipe-stretch: 0px;">
+        <div style="text-align: center; margin-top: -2px; margin-bottom: 4px; border-bottom: 1px solid rgba(212, 163, 115, 0.2); padding-bottom: 3px;">
+          <span style="background: #14171f; color: #d4a373; font-weight: 900; font-size: 8px; letter-spacing: 1px; text-transform: uppercase; padding: 1px 6px; border-radius: 3px;">🥉 3rd Place Playoff</span>
+        </div>
         <div class="comp-row"><span></span><div class="player-line-text" id="third-m1-p1" style="color: #adbac7;">Loser SF 1</div><input type="text" class="score-box" data-target="7" value="0"></div>
         <div class="vs-divider">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text" id="third-m1-p2" style="color: #adbac7;">Loser SF 2</div><input type="text" class="score-box" data-target="7" value="0"></div>
       </div>
 
-      <!-- 🔥 SEMI-FINALS: MATCH 2 (EXPANDED TO XL SEED) -->
-      <div class="sf-card-xl sf-theme" style="grid-column: 7; grid-row: 13;" data-next-target="gf-m1-p2" data-loser-target="third-m1-p2">
+      <!-- 🔥 SEMI-FINALS: MATCH 2 -->
+      <div class="sf-card-xl sf-theme connect-sf-down-gap" style="grid-column: 7; grid-row: 15 / span 2; --nudge: 0px; --pipe-stretch: 0px;" data-next-target="gf-m1-p2" data-loser-target="third-m1-p2">
         <div class="comp-row"><span></span><div class="player-line-text" id="sf-m2-p1">Winner QF 3</div><input type="text" class="score-box" data-target="9" value="0"></div>
-        <div class="vs-divider style="margin: 2px 0;">VS</div>
+        <div class="vs-divider" style="margin: 2px 0;">VS</div>
         <div class="comp-row"><span></span><div class="player-line-text" id="sf-m2-p2">Winner QF 4</div><input type="text" class="score-box" data-target="9" value="0"></div>
       </div>
-      <div style="grid-column: 8; grid-row: 9 / span 5; height: 100%;">
-        <svg class="bracket-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M 0,90 H 50 V 10 H 100" stroke="#4a576c" stroke-width="2" fill="none" /></svg>
-      </div>
-      <!-- 👑 GRAND FINALS (EXPANDED TO LARGEST 100PX FOOTPRINT - HIGHEST VISUAL FOCUS) -->
-      <div class="gf-card-xl gf-theme" style="grid-column: 9; grid-row: 9 / span 1;">
+      <!-- PART 4 OF 5: COLUMN 9 (GRAND FINALS HUB AND INTERACTIVE CALCULATION ENGINE PART A) -->
+      
+      <!-- 👑 GRAND FINALS -->
+      <!-- BALANCED POINT: Set to Row 10 / span 2 to share a seamless middle vector grid template with the 3rd place box split -->
+      <div class="gf-card-xl gf-theme" style="grid-column: 9; grid-row: 10 / span 2; --nudge: 0px; --pipe-stretch: 0px;">
         <div style="display: grid; grid-template-columns: 24px 1fr 26px; align-items: center; width: 100%; gap: 4px;" class="comp-row">
           <span></span>
           <div class="player-line-text" id="gf-m1-p1" style="font-size: 11px !important; text-align: center !important; width: 100%;">Winner SF 1</div>
@@ -360,7 +351,7 @@
         </div>
       </div>
 
-    </div> 
+    </div>
   </div>
 
   <script>
@@ -387,9 +378,7 @@
           winningRow = row;
           if (text) winningName = text.innerText;
         }
-        if (val >= target) {
-          matchFinished = true;
-        }
+        if (val >= target) matchFinished = true;
       });
 
       rows.forEach(row => {
@@ -425,25 +414,26 @@
           if (loserCard) evaluateCardGlow(loserCard);
         }
       } else {
-        if (nextTargetEl) {
-          if (nextTargetId.startsWith('r16-m1')) nextTargetEl.innerText = "Winner Prelim P1";
-          else if (nextTargetId.startsWith('r16-m8')) nextTargetEl.innerText = "Winner Play-In P2";
-          else if (nextTargetId.startsWith('qf-')) {
-            const matchNum = nextTargetId.split('-').replace('m', '');
+        if (nextTargetEl && nextTargetId) {
+          const numMatch = nextTargetId.match(/\d+/);
+          const matchNum = numMatch ? numMatch : "1";
+
+          if (nextTargetId.startsWith('r16-m1')) {
+            nextTargetEl.innerText = "Winner Prelim P1";
+          } else if (nextTargetId.startsWith('r16-m8')) {
+            nextTargetEl.innerText = "Winner Play-In P2";
+          } else if (nextTargetId.startsWith('qf-')) {
             nextTargetEl.innerText = "Winner Match " + matchNum;
-          }
-          else if (nextTargetId.startsWith('sf-')) {
-            const qfNum = nextTargetId.split('-').replace('m', '');
-            nextTargetEl.innerText = "Winner QF " + qfNum;
-          }
-          else if (nextTargetId.startsWith('gf-')) {
-            const sfNum = nextTargetId.split('-').replace('m', '');
-            nextTargetEl.innerText = "Winner SF " + sfNum;
+          } else if (nextTargetId.startsWith('sf-')) {
+            nextTargetEl.innerText = "Winner QF " + matchNum;
+          } else if (nextTargetId.startsWith('gf-')) {
+            nextTargetEl.innerText = "Winner SF " + matchNum;
           }
           const nextCard = nextTargetEl.closest('.m-card, .sf-card-xl, .gf-card-xl');
           if (nextCard) evaluateCardGlow(nextCard);
         }
-        if (loserTargetEl) {
+<!-- PART 5 OF 5: AUTOMATION WORKFLOW CLOSURES AND DOM CLEANUP TERMINATION -->
+        if (loserTargetEl && loserTargetId) {
           if (loserTargetId.startsWith('third-m1-p1')) loserTargetEl.innerText = "Loser SF 1";
           if (loserTargetId.startsWith('third-m1-p2')) loserTargetEl.innerText = "Loser SF 2";
           const loserCard = loserTargetEl.closest('.m-card, .sf-card-xl, .gf-card-xl');
