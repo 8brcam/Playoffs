@@ -1,5 +1,5 @@
-<!-- PART 1 OF 4: CONTAINER, ULTRA-COMPACT STYLES, AND HEADERS -->
-<div style="background-color: #060709; color: #adbac7; padding: 12px 10px; font-family: 'Orbitron', -apple-system, sans-serif; font-size: 10px; border-radius: 12px; border: 1px solid #14171f; max-width: 1350px; margin: 0 auto; box-sizing: border-box; box-shadow: 0 20px 40px rgba(0,0,0,0.9); background-image: radial-gradient(#1f2430 1px, transparent 0); background-size: 16px 16px;">
+<!-- PART 1 OF 4: FULL-WIDTH BLACK MASTER CONTAINER, COMPACT STYLES, AND HEADERS -->
+<div style="background-color: #000000 !important; color: #adbac7; padding: 12px 15px; font-family: 'Orbitron', -apple-system, sans-serif; font-size: 10px; border-radius: 0px; border: none; width: 100% !important; margin: 0; box-sizing: border-box; box-shadow: none; background-image: radial-gradient(#1f2430 1px, transparent 0); background-size: 16px 16px;">
 
   <!-- MOBILE SCROLL HINT INDICATOR -->
   <div class="scroll-hint">↔ Swipe horizontally to view full bracket</div>
@@ -26,7 +26,7 @@
       font-weight: 700;
     }
 
-    /* COHESIVE ROW MATRIX: Dropped row height down to 38px to minimize empty space */
+    /* COMPRESSED GRID TRACKING */
     .tournament-grid-wrapper {
       display: grid;
       grid-template-columns: minmax(130px, 1fr) 30px minmax(130px, 1fr) 30px minmax(130px, 1fr) 30px minmax(130px, 1fr) 30px minmax(130px, 1fr);
@@ -34,6 +34,7 @@
       align-items: center;
       background-color: transparent;
       min-width: 950px;
+      margin: 0 auto;
     }
 
     @media (max-width: 768px) {
@@ -59,7 +60,7 @@
       transform: translateY(var(--nudge, 0px)) !important;
     }
 
-    /* Standard Cards (Prelims, R16, QFs, 3rd Place) - Shrunk height down to 34px */
+    /* Standard Cards - Layered atop the black wrapper */
     .m-card {
       background: linear-gradient(145deg, #181b24 0%, #0d0f14 100%) !important;
       border: 1px solid #28303f !important;
@@ -95,7 +96,7 @@
       background: linear-gradient(145deg, #161c26 0%, #090b10 100%) !important;
     }
 
-    /* COMPACT SEMI-FINAL CARD FORMAT (Height 52px) */
+    /* SEMI-FINAL CARD FORMAT */
     .sf-card-xl {
       background: linear-gradient(145deg, #261111 0%, #0d0606 100%) !important;
       border: 1px dashed #8a2b2b !important;
@@ -111,7 +112,7 @@
     }
     .sf-card-xl:hover { border-color: #ff4d4d !important; }
 
-    /* COMPACT PREMIER GRAND FINAL CARD FORMAT (Height 68px) */
+    /* PREMIER GRAND FINAL CARD FORMAT */
     .gf-card-xl {
       background: linear-gradient(145deg, #332415 0%, #0d0f14 100%) !important;
       border: 1.5px solid #d4a373 !important;
@@ -174,7 +175,7 @@
     }
     .gf-score-box { width: 20px; height: 14px; font-size: 10px; }
 
-    /* COMPACT HARDWARE CONNECTOR LINES: Proportions scaled down to match 30px width gaps and 38px rows */
+    /* HARDWARE CONNECTOR LINES */
     .connect-straight-long::after {
       content: ""; position: absolute; top: calc(50% - 1px); right: -31px; width: 31px; height: 2px; background: #4a576c; z-index: 1;
     }
