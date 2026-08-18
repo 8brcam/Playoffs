@@ -241,21 +241,34 @@
     .connect-sf-down-gap::after {
       content: ""; position: absolute; bottom: calc(50% - 1px); right: -31px; width: 31px; height: calc(208px + var(--pipe-stretch, 0px)); border-right: 2px solid #4a576c; border-bottom: 2px solid #4a576c; z-index: -1;
     }
-    @media (max-width: 768px) {
-  /* Dynamic maximum height based on content to drop empty grid tracks */
-  .tournament-grid-wrapper {
-    height: auto;
-    max-height: max-content;
-    padding-bottom: 20px; /* Clean, controlled base padding instead of layout ghosting */
-  }
-  
-  /* Restrict outer layout bleed which creates vertical scroll anomalies */
-  body, html {
-    overflow-x: hidden;
-  }
-}
+    .connect-sf-down-gap::after {
+      content: ""; position: absolute; bottom: calc(50% - 1px); right: -31px; width: 31px; height: calc(208px + var(--pipe-stretch, 0px)); border-right: 2px solid #4a576c; border-bottom: 2px solid #4a576c; z-index: -1;
+    }
 
+    /* REMOVE THE OLD FLAGGED SNIPPET AND PASTE THIS NEW FORCE-FIX HERE */
+    @media (max-width: 768px) {
+      .responsive-scroll-container {
+        height: auto !important;
+        max-height: calc(100vh - 40px) !important; 
+        overflow-y: hidden !important; 
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+      }
+      .tournament-grid-wrapper {
+        height: max-content !important;
+        min-height: 0 !important;
+        max-height: 100% !important;
+        padding-bottom: 10px !important;
+      }
+      body, html {
+        overflow-x: hidden !important;
+        height: auto !important;
+      }
+    }
   </style>
+
+  <div class="responsive-scroll-container">
+
 
   <div class="responsive-scroll-container">
     <div class="tournament-grid-wrapper">
