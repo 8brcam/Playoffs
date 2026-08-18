@@ -1,4 +1,3 @@
-<!-- PART 1 OF 4: BLACK master CONTAINER, ROW 2 GRID TRACK HEIGHT BUFFER, AND HEADERS -->
 <div style="background-color: #000000 !important; color: #ffffff; padding: 15px; font-family: 'Orbitron', -apple-system, sans-serif; font-size: 11px; width: 100% !important; margin: 0; box-sizing: border-box; background-image: radial-gradient(#1f2430 1px, transparent 0); background-size: 16px 16px;">
 
   <!-- MOBILE SCROLL HINT INDICATOR -->
@@ -242,6 +241,20 @@
     .connect-sf-down-gap::after {
       content: ""; position: absolute; bottom: calc(50% - 1px); right: -31px; width: 31px; height: calc(208px + var(--pipe-stretch, 0px)); border-right: 2px solid #4a576c; border-bottom: 2px solid #4a576c; z-index: -1;
     }
+    @media (max-width: 768px) {
+  /* Dynamic maximum height based on content to drop empty grid tracks */
+  .tournament-grid-wrapper {
+    height: auto;
+    max-height: max-content;
+    padding-bottom: 20px; /* Clean, controlled base padding instead of layout ghosting */
+  }
+  
+  /* Restrict outer layout bleed which creates vertical scroll anomalies */
+  body, html {
+    overflow-x: hidden;
+  }
+}
+
   </style>
 
   <div class="responsive-scroll-container">
@@ -646,5 +659,3 @@
     });
   </script>
 </div>
-
-
