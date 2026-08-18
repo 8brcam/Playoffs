@@ -26,15 +26,24 @@
     }
 
     /* THE UNBREAKABLE PUSH ENGINE: Row 1 is headers (52px), row 2 is an empty buffer space (40px) to slide all matches down safely */
-    .tournament-grid-wrapper {
-      display: grid;
-      grid-template-columns: 255px 30px 255px 30px 255px 30px 255px 30px 255px;
-      grid-template-rows: 52px 40px repeat(21, 42px);
-      align-items: center;
-      background-color: transparent;
-      min-width: 1450px;
-      margin: 0 auto;
-    }
+.tournament-grid-wrapper {
+  display: grid;
+  grid-template-columns: 255px 30px 255px 30px 255px 30px 255px 30px 255px;
+  grid-template-rows: 52px 40px repeat(21, 42px);
+  align-items: center;
+  background-color: transparent;
+  min-width: 1450px;
+  margin: 0 auto;
+}
+
+/* This targets mobile and prevents the browser from scaling phantom grid rows */
+@media (max-width: 991px) {
+  .tournament-grid-wrapper {
+    grid-template-rows: 52px 40px repeat(21, auto) !important;
+    height: max-content !important;
+  }
+}
+
 
     @media (max-width: 768px) {
       .scroll-hint { display: block; }
